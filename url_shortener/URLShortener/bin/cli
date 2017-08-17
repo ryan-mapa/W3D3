@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+
+puts "Input your email:"
+email = gets.chomp
+user = User.create(email: email)
+
+puts
+
+
+
+puts "What do you want to do?"
+puts "0. Create mini url"
+puts "1. Visit a thing"
+input = gets.chomp
+
+if input == "0"
+  puts "What is your long url?"
+  long = gets.chomp
+  shorty = ShortenedUrl.create!(user_id: user.id, long_url: long)
+  puts shorty.short_url
+else
+  puts "What is your short url?"
+  short = gets.chomp
+  longy = ShortenedUrl.find_by(short_url: short)
+  puts longy.long_url
+  system "open #{longy.long_url}"
+end
+
+#"7vHAKs7_fL8oy2crdLV2oQ
